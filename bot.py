@@ -128,4 +128,15 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()def main():
+    if not CHAT_ID or not CHAT_ID.strip():
+        raise Exception("CHAT_ID 为空！请到 GitHub Secrets 正确设置 CHAT_ID = 664869150")
+
+    current_price, dma_200 = get_btc_data()
+    is_below = current_price < dma_200
+
+    # 临时：每次都发送状态，用来测试 Telegram 是否通
+    message = format_status(current_price, dma_200)
+    send_message(message)
+    print("已发送测试消息")
+    print(f"当前价格: {current_price:.2f}, 200DMA: {dma_200:.2f}, below={is_below}")
